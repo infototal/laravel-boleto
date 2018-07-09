@@ -146,10 +146,10 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->add(41, 57, Util::formatCnab('9', $boleto->getNossoNumero(), 17));
         $this->add(58, 58, '1'); //'1' = Cobrança Simples
         $this->add(59, 59, '1'); // ‘1’ - Cobrança Registrada
-        $this->add(60, 60, '1'); //'2’ - Escritural
+        $this->add(60, 60, '2'); //'2’ - Escritural
         $this->add(61, 61, '2'); //‘2’ = Cliente Emite
         $this->add(62, 62, '0'); //‘0’ = Postagem pelo Beneficiário
-        $this->add(63, 73, Util::formatCnab('9', $boleto->getNumero(), 11));
+        $this->add(63, 73, Util::formatCnab('9', $boleto->getNumeroDocumento(), 11));
         $this->add(74, 77, '');
         $this->add(78, 85, $boleto->getDataVencimento()->format('dmY'));
         $this->add(86, 100, Util::formatCnab('9', $boleto->getValor(), 15, 2));
@@ -166,7 +166,7 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->add(151, 165, Util::formatCnab('9', $boleto->getDesconto(), 15, 2));
         $this->add(166, 180, Util::formatCnab('9', 0, 15, 2));
         $this->add(181, 195, Util::formatCnab('9', 0, 15, 2));
-        $this->add(196, 220, Util::formatCnab('X', $boleto->getNumeroControle(), 25));
+        $this->add(196, 220, Util::formatCnab('X', $boleto->getNumeroDocumento(), 25));
         $this->add(221, 221, self::PROTESTO_NAO_PROTESTAR);
         if ($boleto->getDiasProtesto() > 0) {
             $this->add(221, 221, self::PROTESTO_DIAS_UTEIS);
