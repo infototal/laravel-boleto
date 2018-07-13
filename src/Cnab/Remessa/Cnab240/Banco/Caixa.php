@@ -257,7 +257,7 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->add(42, 42, '0'); // '0' = Sem Desconto
         $this->add(43, 50, '00000000');
         $this->add(51, 65, '000000000000000');
-        $this->add(66, 66, $boleto->getMulta() > 0 ? '1' : '0'); // '1' = Valor Fixo, '0' = Sem Multa
+        $this->add(66, 66, $boleto->getMulta() > 0 ? '2' : '0'); // '2' = Percentual, '0' = Sem Multa
         $this->add(67, 74, $boleto->getDataVencimento()->copy()->addDay()->format('dmY'));
         $this->add(75, 89, Util::formatCnab('9', $boleto->getMulta(), 15, 2));
         $this->add(90, 99, '');
