@@ -112,6 +112,7 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->boletos[] = $boleto;
         $this->segmentoP($boleto);
         $this->segmentoQ($boleto);
+        $this->segmentoR($boleto);
         return $this;
     }
 
@@ -159,7 +160,7 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->add(109, 109, Util::formatCnab('9', $boleto->getAceite(), 1));
         $this->add(110, 117, $boleto->getDataDocumento()->format('dmY'));
         $this->add(118, 118, $boleto->getJuros() ? '1' : '3'); //'1' = Valor por Dia, '3' = Isento
-        $this->add(119, 126, $boleto->getDataVencimento()->format('dmY'));
+        $this->add(119, 126, $boleto->getDataVencimento()->copy()->addDay()->format('dmY'));
         $this->add(127, 141, Util::formatCnab('9', $boleto->getMoraDia(), 15, 2)); //Valor da mora/dia ou Taxa mensal
         $this->add(142, 142, $boleto->getDesconto() > 0 ? '1' : '0'); // '1' = Valor Fixo Até a Data Informada, '0' = Sem Desconto
         $this->add(143, 150, $boleto->getDesconto() > 0 ? $boleto->getDataDesconto()->format('dmY') : '00000000');
@@ -224,6 +225,46 @@ class Caixa extends AbstractRemessa implements RemessaContract
             $this->add(155, 169, Util::formatCnab('9', Util::onlyNumbers($boleto->getSacadorAvalista()->getDocumento()), 15));
             $this->add(170, 209, Util::formatCnab('X', $boleto->getSacadorAvalista()->getNome(), 30));
         }
+
+        return $this;
+    }
+
+    /**
+     * @param BoletoContract $boleto
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function segmentoR(BoletoContract $boleto)
+    {
+        $this->iniciaDetalhe();
+        $this->add(1, 3, Util::onlyNumbers($this->getCodigoBanco()));
+        $this->add(4, 7, '0001');
+        $this->add(8, 8, '3');
+        $this->add(9, 13, Util::formatCnab('9', $this->iRegistrosLote, 5));
+        $this->add(14, 14, 'R');
+        $this->add(15, 15, '');
+        $this->add(16, 17, self::OCORRENCIA_REMESSA);
+        if ($boleto->getStatus() == $boleto::STATUS_BAIXA) {
+            $this->add(16, 17, self::OCORRENCIA_PEDIDO_BAIXA);
+        }
+        if ($boleto->getStatus() == $boleto::STATUS_ALTERACAO) {
+            $this->add(16, 17, self::OCORRENCIA_ALT_OUTROS_DADOS);
+        }
+        $this->add(18, 18, '0'); // '0' = Sem Desconto
+        $this->add(19, 26, '00000000');
+        $this->add(27, 41, '000000000000000');
+        $this->add(42, 42, '0'); // '0' = Sem Desconto
+        $this->add(43, 50, '00000000');
+        $this->add(51, 65, '000000000000000');
+        $this->add(66, 66, $boleto->getMulta() > 0 ? '1' : '0'); // '1' = Valor Fixo, '0' = Sem Multa
+        $this->add(67, 74, $boleto->getDataVencimento()->copy()->addDay()->format('dmY'));
+        $this->add(75, 89, Util::formatCnab('9', $boleto->getMulta(), 15, 2));
+        $this->add(90, 99, '');
+        $this->add(100, 139, '');
+        $this->add(140, 179, '');
+        $this->add(180, 229, '');
+        $this->add(230, 240, '');
 
         return $this;
     }
@@ -320,7 +361,7 @@ class Caixa extends AbstractRemessa implements RemessaContract
         $this->add(4, 7, '0001');
         $this->add(8, 8, '5');
         $this->add(9, 17, '');
-        $this->add(18, 23, Util::formatCnab('9', (count($this->boletos) * 2) + 2, 6));
+        $this->add(18, 23, Util::formatCnab('9', (count($this->boletos) * 3) + 2, 6));
         $this->add(24, 29, Util::formatCnab('9', count($this->boletos), 6));
         $this->add(30, 46, Util::formatCnab('9', $valor, 17, 2));
         $this->add(47, 52, Util::formatCnab('9', 0, 6));
