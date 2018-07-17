@@ -59,6 +59,10 @@ class Detalhe implements DetalheContract
      * @var Carbon
      */
     protected $dataCredito;
+    /**
+     * @var Carbon
+     */
+    protected $dataTarifa;
 
     /**
      * @var string
@@ -321,6 +325,32 @@ class Detalhe implements DetalheContract
     public function setDataCredito($dataCredito, $format = 'dmY')
     {
         $this->dataCredito = trim($dataCredito, '0 ') ? Carbon::createFromFormat($format, $dataCredito) : null;
+
+        return $this;
+    }
+
+    /**
+     * @param string $format
+     *
+     * @return Carbon|null|string
+     */
+    public function getDataTarifa($format = 'd/m/Y')
+    {
+        return $this->dataTarifa instanceof Carbon
+            ? $format === false ? $this->dataTarifa : $this->dataTarifa->format($format)
+            : null;
+    }
+
+    /**
+     * @param $dataCredito
+     *
+     * @param string $format
+     *
+     * @return $this
+     */
+    public function setDataTarifa($dataTarifa, $format = 'dmY')
+    {
+        $this->dataTarifa = trim($dataTarifa, '0 ') ? Carbon::createFromFormat($format, $dataTarifa) : null;
 
         return $this;
     }
