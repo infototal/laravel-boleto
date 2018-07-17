@@ -504,7 +504,8 @@ class Caixa extends AbstractRetorno implements RetornoCnab240
                 ->setValorRecebido(Util::nFloat($this->rem(78, 92, $detalhe)/100, 2, false))
                 ->setValorRecebido(Util::nFloat($this->rem(93, 107, $detalhe)/100, 2, false))
                 ->setDataOcorrencia($this->rem(138, 145, $detalhe))
-                ->setDataCredito($this->rem(146, 153, $detalhe));
+                ->setDataCredito($this->rem(146, 153, $detalhe))
+                ->setDataTarifa($this->rem(158, 165, $detalhe));
         }
 
         return true;
