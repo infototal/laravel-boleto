@@ -6,8 +6,9 @@ use Eduardokum\LaravelBoleto\Contracts\Cnab\Retorno\Cnab240\Detalhe as DetalheCo
 use Eduardokum\LaravelBoleto\Contracts\Pessoa as PessoaContract;
 use Eduardokum\LaravelBoleto\MagicTrait;
 use Eduardokum\LaravelBoleto\Util;
+use JsonSerializable;
 
-class Detalhe implements DetalheContract
+class Detalhe implements DetalheContract, JsonSerializable
 {
     use MagicTrait;
 
@@ -73,6 +74,16 @@ class Detalhe implements DetalheContract
      * @var string
      */
     protected $valorRecebido;
+
+    /**
+     * @var string
+     */
+    protected $valorLiquidado;
+
+    /**
+     * @var string
+     */
+    protected $valorPago;
 
     /**
      * @var string
@@ -521,6 +532,20 @@ class Detalhe implements DetalheContract
         return $this;
     }
 
+    public function setValorPago($valorPago)
+    {
+        $this->valorPago = $valorPago;
+
+        return $this;
+    }
+
+    public function setValorLiquidado($valorLiquidado)
+    {
+        $this->valorPago = $valorLiquidado;
+
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -611,5 +636,36 @@ class Detalhe implements DetalheContract
         $this->error = $error;
 
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'ocorrencia' => $this->getOcorrencia(),
+            'ocorrenciaTipo' => $this->getOcorrenciaTipo(),
+            'ocorrenciaDescricao' => $this->getOcorrenciaDescricao(),
+            'numeroControle' => $this->getNumeroControle(),
+            'numeroDocumento' => $this->getNumeroDocumento(),
+            'nossoNumero' => $this->getNossoNumero(),
+            'carteira' => $this->getCarteira(),
+            'dataVencimento' => $this->getDataVencimento(),
+            'dataOcorrencia' => $this->getDataOcorrencia(),
+            'dataCredito' => $this->getDataCredito(),
+            'dataTarifa' => $this->getDataTarifa(),
+            'valor' => $this->valor(),
+            'valorRecebido' => $this->valorRecebido(),
+            'valorTarifa' => $this->getValorTarifa(),
+            'valorIOF' => $this->getValorIOF(),
+            'valorAbatimento' => $this->valorAbatimento(),
+            'valorDesconto' => $this->getValorDesconto(),
+            'valorMora' => $this->getValorMora(),
+            'valorMulta'=> $this->getValorMulta(),
+            'pagador' => $this->getPagador(),
+            'cheques' => $this->getCheques(),
+            'error' => $this->getError()
+            ];
     }
 }
