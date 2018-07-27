@@ -712,7 +712,7 @@ class Detalhe implements DetalheContract, JsonSerializable
             'cheques' => $this->getCheques(),
             'error' => $this->getError(),
             'banco' => $this->getBancoRecebedor(),
-            'agencia' => $this->setAgenciaRecebedora()
+            'agencia' => $this->getAgenciaRecebedora()
             ];
     }
 }
