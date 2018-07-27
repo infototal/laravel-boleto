@@ -127,6 +127,50 @@ class Detalhe implements DetalheContract, JsonSerializable
     protected $error;
 
     /**
+     * @var string
+     */
+    protected $bancoRecebedor;
+
+    /**
+     * @var string
+     */
+    protected $agenciaRecebedora;
+
+
+
+    /**
+     * @return string
+     */
+    public function getBancoRecebedor()
+    {
+        return $this->bancoRecebedor;
+    }
+
+    /**
+     * @param string $bancoRecebedor
+     */
+    public function setBancoRecebedor($bancoRecebedor)
+    {
+        $this->bancoRecebedor = $bancoRecebedor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAgenciaRecebedora()
+    {
+        return $this->agenciaRecebedora;
+    }
+
+    /**
+     * @param string $agenciaRecebedora
+     */
+    public function setAgenciaRecebedora($agenciaRecebedora)
+    {
+        $this->agenciaRecebedora = $agenciaRecebedora;
+    }
+
+    /**
      * @return string
      */
     public function getOcorrencia()
@@ -663,9 +707,12 @@ class Detalhe implements DetalheContract, JsonSerializable
             'valorDesconto' => $this->getValorDesconto(),
             'valorMora' => $this->getValorMora(),
             'valorMulta'=> $this->getValorMulta(),
-            'pagador' => $this->getPagador(),
+            'pagadorNome' => $this->getPagador()->getNome(),
+            'pagadorDocumento' => $this->getPagador()->getDocumento(),
             'cheques' => $this->getCheques(),
-            'error' => $this->getError()
+            'error' => $this->getError(),
+            'banco' => $this->getBancoRecebedor(),
+            'agencia' => $this->setAgenciaRecebedora()
             ];
     }
 }
