@@ -152,6 +152,8 @@ class Detalhe implements DetalheContract, JsonSerializable
     public function setBancoRecebedor($bancoRecebedor)
     {
         $this->bancoRecebedor = $bancoRecebedor;
+
+        return $this;
     }
 
     /**
@@ -168,6 +170,8 @@ class Detalhe implements DetalheContract, JsonSerializable
     public function setAgenciaRecebedora($agenciaRecebedora)
     {
         $this->agenciaRecebedora = $agenciaRecebedora;
+
+        return $this;
     }
 
     /**
