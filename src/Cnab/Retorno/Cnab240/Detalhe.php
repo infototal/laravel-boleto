@@ -81,6 +81,22 @@ class Detalhe implements DetalheContract, JsonSerializable
     protected $valorLiquidado;
 
     /**
+     * @return string
+     */
+    public function getValorLiquidado()
+    {
+        return $this->valorLiquidado;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValorPago()
+    {
+        return $this->valorPago;
+    }
+
+    /**
      * @var string
      */
     protected $valorPago;
@@ -711,6 +727,7 @@ class Detalhe implements DetalheContract, JsonSerializable
             'valorDesconto' => $this->getValorDesconto() == null ? "0" : $this->getValorDesconto(),
             'valorMora' => $this->getValorMora() == null ? "0" : $this->getValorMora(),
             'valorMulta'=> $this->getValorMulta() == null ? "0" : $this->getValorMulta(),
+            'valorPago' => $this->getValorPago() == null ? "0" : $this->getValorPago(),
             'pagadorNome' => $this->getPagador()->getNome() == null ? "-" : $this->getPagador()->getNome(),
             'pagadorDocumento' => $this->getPagador()->getDocumento() == null ? "-" : $this->getPagador()->getDocumento() ,
             'cheques' => $this->getCheques() == null ? "-" : $this->getCheques(),
