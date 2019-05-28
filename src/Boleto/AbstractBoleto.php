@@ -1232,7 +1232,7 @@ abstract class AbstractBoleto implements BoletoContract
      */
     public function getPropaganda()
     {
-        return $this->propaganda ? $this->propaganda : "http://dummyimage.com/300x70/f5/0.png&text=Sem+Logo";
+        return $this->propaganda ? $this->propaganda : null;
     }
 
     /**
