@@ -434,6 +434,8 @@ class Caixa extends AbstractRetorno implements RetornoCnab240
                 ->setNumeroDocumento($this->rem(59, 69, $detalhe))
                 ->setDataVencimento($this->rem(74, 81, $detalhe))
                 ->setValor(Util::nFloat($this->rem(82, 96, $detalhe)/100, 2, false))
+                ->setBancoRecebedor($this->rem(97, 99, $detalhe))
+                ->setAgenciaRecebedora($this->rem(100, 104, $detalhe))
                 ->setNumeroControle($this->rem(106, 130, $detalhe))
                 ->setPagador([
                     'nome' => $this->rem(149, 188, $detalhe),
@@ -502,7 +504,9 @@ class Caixa extends AbstractRetorno implements RetornoCnab240
                 ->setValorAbatimento(Util::nFloat($this->rem(48, 62, $detalhe)/100, 2, false))
                 ->setValorIOF(Util::nFloat($this->rem(63, 77, $detalhe)/100, 2, false))
                 ->setValorRecebido(Util::nFloat($this->rem(78, 92, $detalhe)/100, 2, false))
+                ->setValorPago(Util::nFloat($this->rem(78, 92, $detalhe)/100, 2, false))
                 ->setValorRecebido(Util::nFloat($this->rem(93, 107, $detalhe)/100, 2, false))
+                ->setValorLiquidado(Util::nFloat($this->rem(93, 107, $detalhe)/100, 2, false))
                 ->setDataOcorrencia($this->rem(138, 145, $detalhe))
                 ->setDataCredito($this->rem(146, 153, $detalhe))
                 ->setDataTarifa($this->rem(158, 165, $detalhe));

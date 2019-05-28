@@ -6,8 +6,9 @@ use Eduardokum\LaravelBoleto\Contracts\Cnab\Retorno\Cnab240\Detalhe as DetalheCo
 use Eduardokum\LaravelBoleto\Contracts\Pessoa as PessoaContract;
 use Eduardokum\LaravelBoleto\MagicTrait;
 use Eduardokum\LaravelBoleto\Util;
+use JsonSerializable;
 
-class Detalhe implements DetalheContract
+class Detalhe implements DetalheContract, JsonSerializable
 {
     use MagicTrait;
 
@@ -77,6 +78,32 @@ class Detalhe implements DetalheContract
     /**
      * @var string
      */
+    protected $valorLiquidado;
+
+    /**
+     * @return string
+     */
+    public function getValorLiquidado()
+    {
+        return $this->valorLiquidado;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValorPago()
+    {
+        return $this->valorPago;
+    }
+
+    /**
+     * @var string
+     */
+    protected $valorPago;
+
+    /**
+     * @var string
+     */
     protected $valorTarifa;
 
     /**
@@ -114,6 +141,54 @@ class Detalhe implements DetalheContract
      * @var string
      */
     protected $error;
+
+    /**
+     * @var string
+     */
+    protected $bancoRecebedor;
+
+    /**
+     * @var string
+     */
+    protected $agenciaRecebedora;
+
+
+
+    /**
+     * @return string
+     */
+    public function getBancoRecebedor()
+    {
+        return $this->bancoRecebedor;
+    }
+
+    /**
+     * @param string $bancoRecebedor
+     */
+    public function setBancoRecebedor($bancoRecebedor)
+    {
+        $this->bancoRecebedor = $bancoRecebedor;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAgenciaRecebedora()
+    {
+        return $this->agenciaRecebedora;
+    }
+
+    /**
+     * @param string $agenciaRecebedora
+     */
+    public function setAgenciaRecebedora($agenciaRecebedora)
+    {
+        $this->agenciaRecebedora = $agenciaRecebedora;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -521,6 +596,20 @@ class Detalhe implements DetalheContract
         return $this;
     }
 
+    public function setValorPago($valorPago)
+    {
+        $this->valorPago = $valorPago;
+
+        return $this;
+    }
+
+    public function setValorLiquidado($valorLiquidado)
+    {
+        $this->valorPago = $valorLiquidado;
+
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -611,5 +700,40 @@ class Detalhe implements DetalheContract
         $this->error = $error;
 
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'ocorrencia' => $this->getOcorrencia() == null ? " " : $this->getOcorrencia(),
+            'ocorrenciaTipo' => $this->getOcorrenciaTipo() == null ? " " : $this->getOcorrenciaTipo(),
+            'ocorrenciaDescricao' => $this->getOcorrenciaDescricao() == null ? " " : $this->getOcorrenciaDescricao(),
+            'numeroControle' => $this->getNumeroControle() == null ? "-" : $this->getNumeroControle(),
+            'numeroDocumento' => $this->getNumeroDocumento() == null ? "-" : $this->getNumeroDocumento(),
+            'nossoNumero' => $this->getNossoNumero() == null ? "-" : $this->getNossoNumero(),
+            'carteira' => $this->getCarteira() == null ? "-" : $this->getCarteira(),
+            'dataVencimento' => $this->getDataVencimento() == null ? "-" : $this->getDataVencimento(),
+            'dataOcorrencia' => $this->getDataOcorrencia() == null ? "-" : $this->getDataOcorrencia(),
+            'dataCredito' => $this->getDataCredito() == null ? "-" : $this->getDataCredito(),
+            'dataTarifa' => $this->getDataTarifa() == null ? "-" : $this->getDataTarifa(),
+            'valor' => $this->getValor() == null ? "0" : $this->getValor(),
+            'valorRecebido' => $this->getValorRecebido() == null ? "0" : $this->getValorRecebido(),
+            'valorTarifa' => $this->getValorTarifa() == null ? "0" : $this->getValorTarifa(),
+            'valorIOF' => $this->getValorIOF() == null ? "0" : $this->getValorIOF() ,
+            'valorAbatimento' => $this->getValorAbatimento() == null ? "0" : $this->getValorAbatimento(),
+            'valorDesconto' => $this->getValorDesconto() == null ? "0" : $this->getValorDesconto(),
+            'valorMora' => $this->getValorMora() == null ? "0" : $this->getValorMora(),
+            'valorMulta'=> $this->getValorMulta() == null ? "0" : $this->getValorMulta(),
+            'valorPago' => $this->getValorPago() == null ? "0" : $this->getValorPago(),
+            'pagadorNome' => $this->getPagador()->getNome() == null ? "-" : $this->getPagador()->getNome(),
+            'pagadorDocumento' => $this->getPagador()->getDocumento() == null ? "-" : $this->getPagador()->getDocumento() ,
+            'cheques' => $this->getCheques() == null ? "-" : $this->getCheques(),
+            'error' => $this->getError() == null ? "-" : $this->getError(),
+            'banco' => $this->getBancoRecebedor() == null ? "-" : $this->getBancoRecebedor(),
+            'agencia' => $this->getAgenciaRecebedora() == null ? "-" : $this->getAgenciaRecebedora()
+        ];
     }
 }

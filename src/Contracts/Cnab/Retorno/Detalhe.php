@@ -112,7 +112,6 @@ interface Detalhe
      * @return boolean
      */
     public function hasOcorrencia();
-
     /**
      * @return array
      */
