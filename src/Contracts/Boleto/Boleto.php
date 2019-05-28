@@ -71,6 +71,11 @@ interface Boleto
     /**
      * @return mixed
      */
+    public function getPropaganda();
+
+    /**
+     * @return mixed
+     */
     public function getLogoBancoBase64();
 
     /**

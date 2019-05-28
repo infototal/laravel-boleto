@@ -283,6 +283,14 @@ abstract class AbstractBoleto implements BoletoContract
     protected $status = BoletoContract::STATUS_REGISTRO;
 
     /**
+     * Localização da propaganda do boleto, referente ao diretório de imagens
+     *
+     * @var string
+     */
+
+    protected $propaganda;
+
+    /**
      * Construtor
      *
      * @param array $params Parâmetros iniciais para construção do objeto
@@ -1200,6 +1208,31 @@ abstract class AbstractBoleto implements BoletoContract
     public function getLogo()
     {
         return $this->logo ? $this->logo : "http://dummyimage.com/300x70/f5/0.png&text=Sem+Logo";
+    }
+
+    /**
+     * Define a localização da propaganda
+     *
+     * @param  string $propaganda
+     *
+     * @return AbstractBoleto
+     */
+
+    public function setPropaganda($propaganda)
+    {
+        $this->propaganda = $propaganda;
+
+        return $this;
+    }
+
+    /**
+     * Retorna a localização da propaganda
+     *
+     * @return string
+     */
+    public function getPropaganda()
+    {
+        return $this->propaganda ? $this->propaganda : "http://dummyimage.com/300x70/f5/0.png&text=Sem+Logo";
     }
 
     /**
