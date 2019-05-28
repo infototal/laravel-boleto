@@ -92,6 +92,12 @@ class Pdf extends AbstractPdf implements PdfContract
             $this->Cell(0, $this->cell, $this->_(Util::nReal($this->boleto[$i]->getValor())), 0, 1);
             $this->SetFont($this->PadraoFont, '', $this->fcel);
         }
+        else if(!empty($this->boleto[$i]->getPropaganda())){ //Caso a propaganda exista
+            //$ext = pathinfo(resource_path() . '/reports/images/boleto_img.jpg', PATHINFO_EXTENSION);
+            $ext = pathinfo($this->boleto[$i]->getPropaganda(), PATHINFO_EXTENSION);
+            $this->Image($this->boleto[$i]->getPropaganda(), 20, $this->getY(), 170, 40, $ext);
+            $this->Ln(40);
+        }
 
         $this->traco('Recibo do Pagador', 4);
         return $this;
@@ -451,6 +457,9 @@ class Pdf extends AbstractPdf implements PdfContract
     {
         if ($this->totalBoletos == 0) {
             throw new \Exception('Nenhum Boleto adicionado');
+        }
+        if(!empty($propaganda)){
+            $this->hideInstrucoes();
         }
 
         for ($i = 0; $i < $this->totalBoletos; $i++) {
