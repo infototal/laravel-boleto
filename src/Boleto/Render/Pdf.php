@@ -54,6 +54,9 @@ class Pdf extends AbstractPdf implements PdfContract
      */
     protected function instrucoes($i)
     {
+        if(!empty($this->boleto[$i]->getPropaganda())){
+            $this->hideInstrucoes();
+        }
         $this->SetFont($this->PadraoFont, '', 8);
         if ($this->totalBoletos > 1) {
             $this->SetAutoPageBreak(true);
@@ -93,7 +96,6 @@ class Pdf extends AbstractPdf implements PdfContract
             $this->SetFont($this->PadraoFont, '', $this->fcel);
         }
         else if(!empty($this->boleto[$i]->getPropaganda())){ //Caso a propaganda exista
-            //$ext = pathinfo(resource_path() . '/reports/images/boleto_img.jpg', PATHINFO_EXTENSION);
             $ext = pathinfo($this->boleto[$i]->getPropaganda(), PATHINFO_EXTENSION);
             $this->Image($this->boleto[$i]->getPropaganda(), 20, $this->getY(), 170, 40, $ext);
             $this->Ln(40);
@@ -458,9 +460,7 @@ class Pdf extends AbstractPdf implements PdfContract
         if ($this->totalBoletos == 0) {
             throw new \Exception('Nenhum Boleto adicionado');
         }
-        if(!empty($propaganda)){
-            $this->hideInstrucoes();
-        }
+
 
         for ($i = 0; $i < $this->totalBoletos; $i++) {
             $this->SetDrawColor('0', '0', '0');
