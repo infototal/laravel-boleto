@@ -20,7 +20,7 @@ This bank has the following mandatory fields:
 
     $bradesco = new Eduardokum\LaravelBoleto\Boleto\Banco\Bradesco;
     $bradesco->setLogo('/path/to/logo.png')
-        ->setDataVencimento('1997-10-07')
+        ->setDataVencimento('2025-02-22')
         ->setValor('100')
         ->setNumero(1)
         ->setNumeroDocumento(1)
@@ -43,7 +43,7 @@ Or, Simply:
 
     $bradesco = new Eduardokum\LaravelBoleto\Boleto\Banco\Bradesco([
         'logo' => '/path/to/logo.png',
-        'dataVencimento' => '1997-10-07',
+        'dataVencimento' => '2025-02-22',
         'valor' => 100,
         'numero' => 1,
         'numeroDocumento' => 1,

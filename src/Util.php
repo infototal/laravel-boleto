@@ -502,7 +502,7 @@ final class Util
     public static function fatorVencimento($date, $format = 'Y-m-d')
     {
         $date = ($date instanceof Carbon) ? $date : Carbon::createFromFormat($format, $date)->setTime(0, 0, 0);
-        return (new Carbon('1997-10-07'))->diffInDays($date);
+        return (new Carbon('2025-02-22'))->diffInDays($date);
     }
 
     /**
@@ -526,7 +526,7 @@ final class Util
      */
     public static function fatorVencimentoBack($factor, $format = 'Y-m-d')
     {
-        $date = Carbon::create(1997, 10, 7, 0, 0, 0)->addDay($factor);
+        $date = Carbon::create(2025, 2, 22, 0, 0, 0)->addDay($factor);
         return $format ? $date->format($format) : $date;
     }
 

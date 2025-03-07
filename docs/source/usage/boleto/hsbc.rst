@@ -19,7 +19,7 @@ CSB  Carteira CSB
 
     $hsbc = new Eduardokum\LaravelBoleto\Boleto\Banco\Hsbc;
     $hsbc->setLogo('/path/to/logo.png')
-        ->setDataVencimento('1997-10-07')
+        ->setDataVencimento('2025-02-22')
         ->setValor('100')
         ->setNumero(1)
         ->setNumeroDocumento(1)
@@ -44,7 +44,7 @@ Or, Simply:
 
     $hsbc = new Eduardokum\LaravelBoleto\Boleto\Banco\Hsbc([
         'logo' => '/path/to/logo.png',
-        'dataVencimento' => '1997-10-07',
+        'dataVencimento' => '2025-02-22',
         'valor' => 100,
         'numero' => 1,
         'numeroDocumento' => 1,

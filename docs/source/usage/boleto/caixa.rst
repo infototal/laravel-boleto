@@ -17,7 +17,7 @@ RG  Com Registro
 
     $caixa = new Eduardokum\LaravelBoleto\Boleto\Banco\Caixa;
     $caixa->setLogo('/path/to/logo.png')
-        ->setDataVencimento('1997-10-07')
+        ->setDataVencimento('2025-02-22')
         ->setValor('100')
         ->setNumero(1)
         ->setNumeroDocumento(1)
@@ -40,7 +40,7 @@ Or, Simply:
 
     $caixa = new Eduardokum\LaravelBoleto\Boleto\Banco\Caixa([
         'logo' => '/path/to/logo.png',
-        'dataVencimento' => '1997-10-07',
+        'dataVencimento' => '2025-02-22',
         'valor' => 100,
         'numero' => 1,
         'numeroDocumento' => 1,
