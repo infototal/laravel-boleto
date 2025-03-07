@@ -502,7 +502,8 @@ final class Util
     public static function fatorVencimento($date, $format = 'Y-m-d')
     {
         $date = ($date instanceof Carbon) ? $date : Carbon::createFromFormat($format, $date)->setTime(0, 0, 0);
-        return (new Carbon('2025-02-22'))->diffInDays($date);
+        $diffInDays = (new Carbon('2025-02-22'))->diffInDays($date) + 1000;  // To-Do: Melhorar isso aqui. Ao Chegar em 9999 tem que voltar pra 1000
+        return str_pad($diffInDays, 4, "0", STR_PAD_LEFT);
     }
 
     /**
